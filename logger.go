@@ -8,19 +8,14 @@ import (
 )
 
 var (
-	log         *logrus.Logger
-	AppLog      *logrus.Entry
-	InitLog     *logrus.Entry
-	ConfigLog   *logrus.Entry
+	log       *logrus.Logger
+	AppLog    *logrus.Entry
+	InitLog   *logrus.Entry
+	ConfigLog *logrus.Entry
+	XdpLog    *logrus.Entry
+	Pfcplog   *logrus.Entry
 )
 
-const (
-	// FieldRanAddr     string = "ran_addr"
-	// FieldRanId       string = "ran_id"
-	// FieldAmfUeNgapID string = "amf_ue_ngap_id"
-	// FieldSupi        string = "supi"
-	// FieldSuci        string = "suci"
-)
 
 func init() {
 	log = logrus.New()
@@ -31,12 +26,14 @@ func init() {
 		TrimMessages:    true,
 		NoFieldsSpace:   true,
 		HideKeys:        true,
-		// FieldsOrder:     []string{"component", "category", FieldRanAddr, FieldRanId, FieldAmfUeNgapID, FieldSupi, FieldSuci},
+		FieldsOrder:     []string{"component", "category"},
 	}
 
 	AppLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "App"})
 	InitLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "Init"})
 	ConfigLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "CFG"})
+	XdpLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "XDP"})
+	Pfcplog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "PFCP"})
 }
 
 func SetLogLevel(level logrus.Level) {
