@@ -1,18 +1,25 @@
 package logger
 
 import (
+	"time"
+
 	formatter "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/sirupsen/logrus"
-	"time"
 )
 
 var (
-	log     *logrus.Logger
-	initlog *logrus.Entry
-	applog  *logrus.Entry
-	pfcplog *logrus.Entry
-	xdplog  *logrus.Entry
-	ebpflog *logrus.Entry
+	log         *logrus.Logger
+	AppLog      *logrus.Entry
+	InitLog     *logrus.Entry
+	ConfigLog   *logrus.Entry
+)
+
+const (
+	// FieldRanAddr     string = "ran_addr"
+	// FieldRanId       string = "ran_id"
+	// FieldAmfUeNgapID string = "amf_ue_ngap_id"
+	// FieldSupi        string = "supi"
+	// FieldSuci        string = "suci"
 )
 
 func init() {
@@ -24,15 +31,18 @@ func init() {
 		TrimMessages:    true,
 		NoFieldsSpace:   true,
 		HideKeys:        true,
+		// FieldsOrder:     []string{"component", "category", FieldRanAddr, FieldRanId, FieldAmfUeNgapID, FieldSupi, FieldSuci},
 	}
 
-	applog  = log.WithFields(logrus.Fields{"component": "HEXA-UPF", "category": "App"})
-	initlog = log.WithFields(logrus.Fields{"component": "HEXA-UPF", "category": "Init"})
-	pfcplog = log.WithFields(logrus.Fields{"component": "HEXA-UPF", "category": "PFCP"})
-	xdplog  = log.WithFields(logrus.Fields{"component": "HEXA-UPF", "category": "XDP"})
-	ebpflog = log.WithFields(logrus.Fields{"component": "HEXA-UPF", "category": "EBPF"})
+	AppLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "App"})
+	InitLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "Init"})
+	ConfigLog = log.WithFields(logrus.Fields{"component": "HEXA_UPF", "category": "CFG"})
 }
 
 func SetLogLevel(level logrus.Level) {
 	log.SetLevel(level)
 }
+
+// func SetReportCaller(set bool) {
+// 	log.SetReportCaller(set)
+// }
